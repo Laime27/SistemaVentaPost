@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"> </script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
     
@@ -20,7 +21,8 @@
 
 
     <script>
-    
+      
+
         $('#enviar').click(function(){
 
             let email = $('#email').val();
@@ -30,12 +32,18 @@
                 url: '/login',
                 type: 'POST',
                 dataType: 'json',
+                headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') 
+                    },
                 data: {
                     email: email,
                     password: password
                 },
                 success: function(response){
-                    alert(response.message);
+                 
+                    if(response.message == 'Success'){
+                        window.location.href = '/categorias';
+                    }
                 }
             });
 

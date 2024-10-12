@@ -21,13 +21,13 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)){
             return response()->json([
-                'message' => 'Login Success',
+                'message' => 'Success',
                 'user' => Auth::user()
             ]);
 
         } else {
             return response()->json([
-                'message' => 'Login Failed',
+                'message' => 'Credenciales incorrectos',
             ]);
         }
 
